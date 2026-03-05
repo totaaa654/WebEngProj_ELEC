@@ -66,12 +66,21 @@ Allowed files:
 - `public/departments/<CODE>/...`
 - `src/Pages/departments/<CODE>.tsx`
 - `src/Pages/admin/<CODE>Admin.tsx`
+- `src/data/department/<CODE>.ts`
+
+## Allow new CODE-specific pages/components/styles/assets:
+- `src/Pages/departments/<CODE>*.tsx`
+- `src/Pages/admin/<CODE>*Admin.tsx`
+- `src/components/<CODE>*.tsx`
+- `src/styles/departments/<CODE>*.css`
+- `src/styles/admin/<CODE>*.css`
+
+# Optional route support
+- `src/App.tsx`
 
 Forbidden for all `dept/*` branches:
 - Any other department JSON files
-- Any other `src/Pages/departments/*.tsx` files
 - `src/Pages/LandingPage.tsx`
-- `src/App.tsx`
 - Shared infrastructure/docs unless maintainer explicitly requests
 
 ## 4) Ownership Map (Landing)
