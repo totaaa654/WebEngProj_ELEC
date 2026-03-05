@@ -23,15 +23,22 @@ export default function EEAdminPage() {
   const [baseDept, setBaseDept] = useState<DepartmentData | null>(null);
   const [form, setForm] = useState<DepartmentEditableContent | null>(null);
   const [status, setStatus] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const data = getDeptDefaults(code);
-    const defaults = extractEditableContent(data);
-    const draft = loadDeptDraft(code);
-    const overrides = loadDeptOverrides(code);
+    try {
+      const data = getDeptDefaults(code);
+      const defaults = extractEditableContent(data);
+      const draft = loadDeptDraft(code);
+      const overrides = loadDeptOverrides(code);
 
-    setBaseDept(data);
-    setForm(mergeWithShape(defaults, draft ?? overrides));
+      setBaseDept(data);
+      setForm(mergeWithShape(defaults, draft ?? overrides));
+      setError("");
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to load department admin data.";
+      setError(message);
+    }
   }, []);
 
   useEffect(() => {
