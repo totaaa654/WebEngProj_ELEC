@@ -1,18 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type ResizablePagePreviewProps = {
   title: string;
   description: string;
   previewUrl: string;
+  liveToken?: string;
 };
 
 export default function ResizablePagePreview({
   title,
   description,
   previewUrl,
+  liveToken,
 }: ResizablePagePreviewProps) {
   const [width, setWidth] = useState(420);
   const [refreshNonce, setRefreshNonce] = useState(0);
+
+  useEffect(() => {
+    if (typeof liveToken === "undefined") return;
+
+    const timer = window.setTimeout(() => {
+      setRefreshNonce((n) => n + 1);
+    }, 180);
+
+    return () => window.clearTimeout(timer);
+  }, [liveToken]);
 
   return (
     <aside className="xl:sticky xl:top-6 xl:self-start rounded-2xl border bg-white p-6">

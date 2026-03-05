@@ -1,12 +1,20 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import AdminAccessGate from "../components/AdminAccessGate";
 import ResizablePagePreview from "../components/ResizablePagePreview";
-import { type LandingSectionData } from "../data/landing";
 import {
+  type BaseLandingSectionData,
+  type FooterLink,
+  type FooterSectionData,
+  type NewsItem,
+  type NewsSectionData,
+} from "../data/landing";
+import {
+  clearLandingDraft,
   clearLandingOverrides,
   getLandingDefaults,
   loadLandingOverrides,
+  saveLandingDraft,
   saveLandingOverrides,
   type LandingEditableContent,
 } from "../lib/landingAdmin";
@@ -20,6 +28,10 @@ export default function LandingAdminPage() {
   );
   const [status, setStatus] = useState("");
 
+  useEffect(() => {
+    saveLandingDraft(form);
+  }, [form]);
+
   const handleSave = () => {
     saveLandingOverrides(form);
     setStatus("Saved local landing override for this browser.");
@@ -27,6 +39,7 @@ export default function LandingAdminPage() {
 
   const handleReset = () => {
     clearLandingOverrides();
+    clearLandingDraft();
     setForm(cloneDefaults());
     setStatus("Reset complete. Landing override removed.");
   };
@@ -65,7 +78,7 @@ export default function LandingAdminPage() {
                 </p>
                 <h1 className="mt-2 text-3xl font-black text-gray-900">Landing Editor</h1>
                 <p className="mt-3 text-sm text-gray-600">
-                  Edit landing content blocks. This saves browser-local override.
+                  Edit landing blocks. Preview updates while typing.
                 </p>
 
                 <section className="mt-8 rounded-xl border p-5">
@@ -128,56 +141,124 @@ export default function LandingAdminPage() {
                   </div>
                 </section>
 
-                <SectionEditor
-                  title="Mission & Vision"
-                  data={form.sections.missionVision}
-                  onChange={(next) =>
-                    setForm({
-                      ...form,
-                      sections: { ...form.sections, missionVision: next },
-                    })
-                  }
-                />
-                <SectionEditor
-                  title="Department Grid"
-                  data={form.sections.departmentGrid}
-                  onChange={(next) =>
-                    setForm({
-                      ...form,
-                      sections: { ...form.sections, departmentGrid: next },
-                    })
-                  }
-                />
-                <SectionEditor
-                  title="News"
+                <section className="mt-6 rounded-xl border p-5">
+                  <h2 className="text-lg font-bold text-gray-900">Mission & Vision</h2>
+                  <BasicSectionEditor
+                    data={form.sections.missionVision}
+                    onChange={(next) =>
+                      setForm({
+                        ...form,
+                        sections: { ...form.sections, missionVision: next },
+                      })
+                    }
+                  />
+                  <Field label="Mission Text" className="mt-4">
+                    <textarea
+                      value={form.sections.missionVision.missionText}
+                      onChange={(e) =>
+                        setForm({
+                          ...form,
+                          sections: {
+                            ...form.sections,
+                            missionVision: {
+                              ...form.sections.missionVision,
+                              missionText: e.target.value,
+                            },
+                          },
+                        })
+                      }
+                      className="h-20 w-full rounded-lg border px-3 py-2"
+                    />
+                  </Field>
+                  <Field label="Vision Text" className="mt-4">
+                    <textarea
+                      value={form.sections.missionVision.visionText}
+                      onChange={(e) =>
+                        setForm({
+                          ...form,
+                          sections: {
+                            ...form.sections,
+                            missionVision: {
+                              ...form.sections.missionVision,
+                              visionText: e.target.value,
+                            },
+                          },
+                        })
+                      }
+                      className="h-20 w-full rounded-lg border px-3 py-2"
+                    />
+                  </Field>
+                </section>
+
+                <section className="mt-6 rounded-xl border p-5">
+                  <h2 className="text-lg font-bold text-gray-900">Department Grid</h2>
+                  <BasicSectionEditor
+                    data={form.sections.departmentGrid}
+                    onChange={(next) =>
+                      setForm({
+                        ...form,
+                        sections: { ...form.sections, departmentGrid: next },
+                      })
+                    }
+                  />
+                  <Field label="Intro Text" className="mt-4">
+                    <textarea
+                      value={form.sections.departmentGrid.introText}
+                      onChange={(e) =>
+                        setForm({
+                          ...form,
+                          sections: {
+                            ...form.sections,
+                            departmentGrid: {
+                              ...form.sections.departmentGrid,
+                              introText: e.target.value,
+                            },
+                          },
+                        })
+                      }
+                      className="h-20 w-full rounded-lg border px-3 py-2"
+                    />
+                  </Field>
+                </section>
+
+                <NewsSectionEditor
                   data={form.sections.news}
                   onChange={(next) =>
                     setForm({ ...form, sections: { ...form.sections, news: next } })
                   }
                 />
-                <SectionEditor
-                  title="Facilities"
-                  data={form.sections.facilities}
-                  onChange={(next) =>
-                    setForm({ ...form, sections: { ...form.sections, facilities: next } })
-                  }
-                />
-                <SectionEditor
-                  title="Statistics"
-                  data={form.sections.statistics}
-                  onChange={(next) =>
-                    setForm({ ...form, sections: { ...form.sections, statistics: next } })
-                  }
-                />
-                <SectionEditor
-                  title="Contact"
-                  data={form.sections.contact}
-                  onChange={(next) =>
-                    setForm({ ...form, sections: { ...form.sections, contact: next } })
-                  }
-                />
-                <SectionEditor
-                  title="Footer"
+
+                <section className="mt-6 rounded-xl border p-5">
+                  <h2 className="text-lg font-bold text-gray-900">Facilities</h2>
+                  <BasicSectionEditor
+                    data={form.sections.facilities}
+                    onChange={(next) =>
+                      setForm({ ...form, sections: { ...form.sections, facilities: next } })
+                    }
+                  />
+                </section>
+
+                <section className="mt-6 rounded-xl border p-5">
+                  <h2 className="text-lg font-bold text-gray-900">Statistics</h2>
+                  <BasicSectionEditor
+                    data={form.sections.statistics}
+                    onChange={(next) =>
+                      setForm({ ...form, sections: { ...form.sections, statistics: next } })
+                    }
+                  />
+                </section>
+
+                <section className="mt-6 rounded-xl border p-5">
+                  <h2 className="text-lg font-bold text-gray-900">Contact</h2>
+                  <BasicSectionEditor
+                    data={form.sections.contact}
+                    onChange={(next) =>
+                      setForm({ ...form, sections: { ...form.sections, contact: next } })
+                    }
+                  />
+                </section>
+
+                <FooterSectionEditor
                   data={form.sections.footer}
                   onChange={(next) =>
                     setForm({ ...form, sections: { ...form.sections, footer: next } })
@@ -233,8 +314,9 @@ export default function LandingAdminPage() {
 
               <ResizablePagePreview
                 title="Live Preview"
-                description="This is the actual landing page rendered in an iframe. Save and reload preview to apply changes."
-                previewUrl="/"
+                description="This is the actual landing page rendered in an iframe. It refreshes automatically while you type."
+                previewUrl="/?preview=landing"
+                liveToken={jsonText}
               />
             </div>
           </div>
@@ -244,47 +326,156 @@ export default function LandingAdminPage() {
   );
 }
 
-function SectionEditor({
-  title,
+function BasicSectionEditor<T extends BaseLandingSectionData>({
   data,
   onChange,
 }: {
-  title: string;
-  data: LandingSectionData;
-  onChange: (next: LandingSectionData) => void;
+  data: T;
+  onChange: (next: T) => void;
 }) {
   return (
+    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <Field label="Section ID">
+        <input
+          value={data.id}
+          onChange={(e) => onChange({ ...data, id: e.target.value })}
+          className="w-full rounded-lg border px-3 py-2"
+        />
+      </Field>
+      <Field label="Section Title">
+        <input
+          value={data.title}
+          onChange={(e) => onChange({ ...data, title: e.target.value })}
+          className="w-full rounded-lg border px-3 py-2"
+        />
+      </Field>
+      <Field label="Assigned Group">
+        <input
+          value={data.assignedGroup}
+          onChange={(e) => onChange({ ...data, assignedGroup: e.target.value })}
+          className="w-full rounded-lg border px-3 py-2"
+        />
+      </Field>
+      <Field label="Status Label">
+        <input
+          value={data.statusLabel}
+          onChange={(e) => onChange({ ...data, statusLabel: e.target.value })}
+          className="w-full rounded-lg border px-3 py-2"
+        />
+      </Field>
+    </div>
+  );
+}
+
+function NewsSectionEditor({
+  data,
+  onChange,
+}: {
+  data: NewsSectionData;
+  onChange: (next: NewsSectionData) => void;
+}) {
+  const updateNewsItem = (index: number, updater: (item: NewsItem) => NewsItem) => {
+    onChange({
+      ...data,
+      items: data.items.map((item, idx) => (idx === index ? updater(item) : item)),
+    });
+  };
+
+  return (
     <section className="mt-6 rounded-xl border p-5">
-      <h2 className="text-lg font-bold text-gray-900">{title}</h2>
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Field label="Section ID">
-          <input
-            value={data.id}
-            onChange={(e) => onChange({ ...data, id: e.target.value })}
-            className="w-full rounded-lg border px-3 py-2"
-          />
-        </Field>
-        <Field label="Section Title">
-          <input
-            value={data.title}
-            onChange={(e) => onChange({ ...data, title: e.target.value })}
-            className="w-full rounded-lg border px-3 py-2"
-          />
-        </Field>
-        <Field label="Assigned Group">
-          <input
-            value={data.assignedGroup}
-            onChange={(e) => onChange({ ...data, assignedGroup: e.target.value })}
-            className="w-full rounded-lg border px-3 py-2"
-          />
-        </Field>
-        <Field label="Status Label">
-          <input
-            value={data.statusLabel}
-            onChange={(e) => onChange({ ...data, statusLabel: e.target.value })}
-            className="w-full rounded-lg border px-3 py-2"
-          />
-        </Field>
+      <h2 className="text-lg font-bold text-gray-900">News</h2>
+      <BasicSectionEditor data={data} onChange={onChange} />
+
+      <div className="mt-4 space-y-3">
+        {data.items.map((item, idx) => (
+          <div key={idx} className="grid grid-cols-12 gap-2 items-center">
+            <input
+              value={item.date}
+              onChange={(e) => updateNewsItem(idx, (current) => ({ ...current, date: e.target.value }))}
+              className="col-span-3 rounded-lg border px-3 py-2"
+              placeholder="YYYY-MM-DD"
+            />
+            <input
+              value={item.title}
+              onChange={(e) => updateNewsItem(idx, (current) => ({ ...current, title: e.target.value }))}
+              className="col-span-7 rounded-lg border px-3 py-2"
+              placeholder="News title"
+            />
+            <button
+              type="button"
+              onClick={() => onChange({ ...data, items: data.items.filter((_, i) => i !== idx) })}
+              className="col-span-2 rounded-lg border px-2 py-2 text-sm"
+            >
+              Remove
+            </button>
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={() => onChange({ ...data, items: [...data.items, { date: "", title: "" }] })}
+          className="rounded-lg border px-4 py-2 text-sm font-semibold"
+        >
+          Add News Item
+        </button>
+      </div>
+    </section>
+  );
+}
+
+function FooterSectionEditor({
+  data,
+  onChange,
+}: {
+  data: FooterSectionData;
+  onChange: (next: FooterSectionData) => void;
+}) {
+  const updateLink = (index: number, updater: (item: FooterLink) => FooterLink) => {
+    onChange({
+      ...data,
+      links: data.links.map((item, idx) => (idx === index ? updater(item) : item)),
+    });
+  };
+
+  return (
+    <section className="mt-6 rounded-xl border p-5">
+      <h2 className="text-lg font-bold text-gray-900">Footer</h2>
+      <BasicSectionEditor data={data} onChange={onChange} />
+
+      <div className="mt-4 space-y-3">
+        {data.links.map((link, idx) => (
+          <div key={idx} className="grid grid-cols-12 gap-2 items-center">
+            <input
+              value={link.label}
+              onChange={(e) =>
+                updateLink(idx, (current) => ({ ...current, label: e.target.value }))
+              }
+              className="col-span-4 rounded-lg border px-3 py-2"
+              placeholder="Link label"
+            />
+            <input
+              value={link.href}
+              onChange={(e) =>
+                updateLink(idx, (current) => ({ ...current, href: e.target.value }))
+              }
+              className="col-span-6 rounded-lg border px-3 py-2"
+              placeholder="/path or https://"
+            />
+            <button
+              type="button"
+              onClick={() => onChange({ ...data, links: data.links.filter((_, i) => i !== idx) })}
+              className="col-span-2 rounded-lg border px-2 py-2 text-sm"
+            >
+              Remove
+            </button>
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={() => onChange({ ...data, links: [...data.links, { label: "", href: "" }] })}
+          className="rounded-lg border px-4 py-2 text-sm font-semibold"
+        >
+          Add Footer Link
+        </button>
       </div>
     </section>
   );

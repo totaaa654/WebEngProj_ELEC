@@ -1,73 +1,127 @@
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import {
   landingPageData,
-  type LandingSectionData,
+  type BaseLandingSectionData,
+  type ContactSectionData,
+  type DepartmentGridSectionData,
+  type FacilitiesSectionData,
+  type FooterSectionData,
+  type MissionVisionSectionData,
+  type NewsSectionData,
+  type StatisticsSectionData,
 } from "../data/landing";
-import { mergeLandingWithOverrides } from "../lib/landingAdmin";
+import {
+  loadLandingDraft,
+  mergeLandingWithOverrides,
+} from "../lib/landingAdmin";
 
-type SectionProps = {
-  data: LandingSectionData;
+type BaseSectionProps = {
+  data: BaseLandingSectionData;
 };
 
-function MissionVisionSection({ data }: SectionProps) {
+function MissionVisionSection({ data }: { data: MissionVisionSectionData }) {
   return (
     <section id="mission-vision" className="max-w-6xl mx-auto px-6 py-10">
-      <SectionCard data={data} />
+      <SectionCard data={data}>
+        <p className="mt-3 text-sm text-gray-600">Mission: {data.missionText}</p>
+        <p className="mt-1 text-sm text-gray-600">Vision: {data.visionText}</p>
+      </SectionCard>
     </section>
   );
 }
 
-function DepartmentGridSection({ data }: SectionProps) {
+function DepartmentGridSection({ data }: { data: DepartmentGridSectionData }) {
   return (
     <section id="department-grid" className="max-w-6xl mx-auto px-6 py-10">
-      <SectionCard data={data} />
+      <SectionCard data={data}>
+        <p className="mt-3 text-sm text-gray-600">{data.introText}</p>
+      </SectionCard>
     </section>
   );
 }
 
-function NewsSection({ data }: SectionProps) {
+function NewsSection({ data }: { data: NewsSectionData }) {
   return (
     <section id="news" className="max-w-6xl mx-auto px-6 py-10">
-      <SectionCard data={data} />
+      <SectionCard data={data}>
+        <div className="mt-3 space-y-1 text-sm text-gray-600">
+          {data.items.map((item, idx) => (
+            <p key={idx}>
+              {item.date} - {item.title}
+            </p>
+          ))}
+        </div>
+      </SectionCard>
     </section>
   );
 }
 
-function FacilitiesSection({ data }: SectionProps) {
+function FacilitiesSection({ data }: { data: FacilitiesSectionData }) {
   return (
     <section id="facilities" className="max-w-6xl mx-auto px-6 py-10">
-      <SectionCard data={data} />
+      <SectionCard data={data}>
+        <div className="mt-3 space-y-1 text-sm text-gray-600">
+          {data.highlights.map((item, idx) => (
+            <p key={idx}>- {item}</p>
+          ))}
+        </div>
+      </SectionCard>
     </section>
   );
 }
 
-function StatisticsSection({ data }: SectionProps) {
+function StatisticsSection({ data }: { data: StatisticsSectionData }) {
   return (
     <section id="statistics" className="max-w-6xl mx-auto px-6 py-10">
-      <SectionCard data={data} />
+      <SectionCard data={data}>
+        <div className="mt-3 flex flex-wrap items-center justify-center gap-4 text-sm text-gray-700">
+          {data.stats.map((item, idx) => (
+            <span key={idx}>
+              <strong>{item.value}</strong> {item.label}
+            </span>
+          ))}
+        </div>
+      </SectionCard>
     </section>
   );
 }
 
-function ContactSection({ data }: SectionProps) {
+function ContactSection({ data }: { data: ContactSectionData }) {
   return (
     <section id="contact" className="max-w-6xl mx-auto px-6 py-10">
-      <SectionCard data={data} />
+      <SectionCard data={data}>
+        <p className="mt-3 text-sm text-gray-600">Email: {data.email}</p>
+        <p className="text-sm text-gray-600">Phone: {data.phone}</p>
+        <p className="text-sm text-gray-600">Address: {data.address}</p>
+      </SectionCard>
     </section>
   );
 }
 
-function LandingFooterSection({ data }: SectionProps) {
+function LandingFooterSection({ data }: { data: FooterSectionData }) {
   return (
     <footer id="footer" className="border-t bg-gray-100">
       <div className="max-w-6xl mx-auto px-6 py-8 text-sm text-gray-500">
-        {data.statusLabel}: {data.assignedGroup}
+        <p>
+          {data.statusLabel}: {data.assignedGroup}
+        </p>
+        <div className="mt-3 flex flex-wrap gap-4">
+          {data.links.map((link, idx) => (
+            <a key={idx} href={link.href} className="text-sm text-gray-700 underline">
+              {link.label}
+            </a>
+          ))}
+        </div>
       </div>
     </footer>
   );
 }
 
-function SectionCard({ data }: SectionProps) {
+function SectionCard({
+  data,
+  children,
+}: BaseSectionProps & { children?: ReactNode }) {
   return (
     <div className="rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 px-6 py-10 text-center">
       <p className="text-xs font-semibold tracking-[0.14em] text-gray-500">
@@ -75,12 +129,38 @@ function SectionCard({ data }: SectionProps) {
       </p>
       <h2 className="mt-3 text-2xl font-bold text-gray-900">{data.title}</h2>
       <p className="mt-2 text-sm text-gray-600">{data.assignedGroup}</p>
+      {children}
     </div>
   );
 }
 
 export default function LandingPage() {
-  const { hero, sections } = mergeLandingWithOverrides(landingPageData);
+  const isPreviewMode = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    return new URLSearchParams(window.location.search).get("preview") === "landing";
+  }, []);
+
+  const [data, setData] = useState(() => {
+    if (isPreviewMode) {
+      return loadLandingDraft() ?? mergeLandingWithOverrides(landingPageData);
+    }
+
+    return mergeLandingWithOverrides(landingPageData);
+  });
+
+  useEffect(() => {
+    if (!isPreviewMode) return;
+
+    const onStorage = (event: StorageEvent) => {
+      if (event.key !== "landing-admin-draft") return;
+      setData(loadLandingDraft() ?? mergeLandingWithOverrides(landingPageData));
+    };
+
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, [isPreviewMode]);
+
+  const { hero, sections } = data;
 
   return (
     <div className="min-h-screen bg-white">

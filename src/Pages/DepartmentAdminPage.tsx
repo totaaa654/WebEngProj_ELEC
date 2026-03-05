@@ -800,8 +800,9 @@ export default function DepartmentAdminPage() {
 
               <ResizablePagePreview
                 title="Live Preview"
-                description="This is the actual department page rendered in an iframe. Save and reload preview to apply changes."
+                description="This is the actual department page rendered in an iframe. It refreshes automatically while you type."
                 previewUrl={`/dept/${code}`}
+                liveToken={fullJsonText}
               />
             </div>
           </div>
