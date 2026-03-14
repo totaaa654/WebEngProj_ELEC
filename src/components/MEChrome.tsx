@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 
 type ScrollNavItem = {
@@ -52,41 +52,116 @@ export function MENavbar({
   onNav?: (id: string) => void;
   cta?: NavCallToAction;
 }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return undefined;
+    }
+
+    const mediaQuery = window.matchMedia("(min-width: 980px)");
+    const handleDesktopEnter = (event: MediaQueryListEvent) => {
+      if (event.matches) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleDesktopEnter);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleDesktopEnter);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isMenuOpen || typeof document === "undefined") {
+      return undefined;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isMenuOpen]);
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  const handleScrollItemClick = (target: string) => {
+    onNav?.(target);
+    closeMenu();
+  };
+
   return (
     <header className="me-nav">
       <div className="me-nav__inner">
-        <Link to={`/dept/${dept.code}`} className="me-nav__brand">
-        <img src="/icons/me.png" alt="Mechanical Engineering Logo" className="me-nav__seal" />
+        <Link to={`/dept/${dept.code}`} className="me-nav__brand" onClick={closeMenu}>
+          <img src="/icons/me.png" alt="Mechanical Engineering Logo" className="me-nav__seal" />
           <span>
             <span className="me-nav__title">{dept.shortTitle}</span>
             <span className="me-nav__subtitle">College of Engineering</span>
           </span>
         </Link>
 
-        <nav className="me-nav__links" aria-label={`${dept.shortTitle} navigation`}>
+        <button
+          type="button"
+          className="me-nav__toggle"
+          aria-expanded={isMenuOpen}
+          aria-controls="me-nav-menu"
+          aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          onClick={() => setIsMenuOpen((open) => !open)}
+        >
+          <span className="me-nav__toggle-bar" />
+          <span className="me-nav__toggle-bar" />
+          <span className="me-nav__toggle-bar" />
+        </button>
+
+        <div
+          className={isMenuOpen ? "me-nav__overlay is-open" : "me-nav__overlay"}
+          onClick={closeMenu}
+          aria-hidden="true"
+        />
+
+        <nav
+          id="me-nav-menu"
+          className={isMenuOpen ? "me-nav__links is-open" : "me-nav__links"}
+          aria-label={`${dept.shortTitle} navigation`}
+        >
           {items.map((item) =>
             item.kind === "scroll" ? (
               <button
                 key={item.label}
                 type="button"
                 className="me-nav__link"
-                onClick={() => onNav?.(item.target)}
+                onClick={() => handleScrollItemClick(item.target)}
               >
                 {item.label}
               </button>
             ) : (
-              <Link key={item.label} to={item.to} className="me-nav__link">
+              <Link key={item.label} to={item.to} className="me-nav__link" onClick={closeMenu}>
                 {item.label}
               </Link>
             )
           )}
-        </nav>
 
-        {cta ? (
-          <Link to={cta.to} className="me-button me-button--nav">
-            {cta.label}
-          </Link>
-        ) : null}
+          {cta ? (
+            <Link to={cta.to} className="me-button me-button--nav me-nav__cta" onClick={closeMenu}>
+              {cta.label}
+            </Link>
+          ) : null}
+        </nav>
       </div>
     </header>
   );
