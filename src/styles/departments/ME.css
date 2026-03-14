@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800;900&display=swap");
+
 :root {
   --me-accent: #315fd3;
   --me-accent-soft: #89a9ff;
@@ -37,10 +39,18 @@
 .me-page {
   min-height: 100vh;
   color: var(--me-ink);
+  font-family: "DM Sans", sans-serif;
   background:
     radial-gradient(circle at top right, var(--me-glow-accent), transparent 28rem),
     radial-gradient(circle at top left, var(--me-glow-signal), transparent 24rem),
     linear-gradient(180deg, var(--me-white) 0%, var(--me-canvas) 100%);
+}
+
+.me-page button,
+.me-page input,
+.me-page select,
+.me-page textarea {
+  font-family: inherit;
 }
 
 [data-me-reveal] {
