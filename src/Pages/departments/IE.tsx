@@ -36,7 +36,7 @@ export default function IEPage() {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white min-h-screen text-gray-900">
       <Navbar onNav={onNav} />
 
       <section id="home" className="max-w-6xl mx-auto px-6 pt-10">
@@ -48,7 +48,7 @@ export default function IEPage() {
           <div className="mt-5">
             <Link
               to={`/dept/${dept.code}/admin`}
-              className="inline-flex items-center rounded-full border border-[#a90000] px-5 py-2 text-sm font-semibold text-[#a90000] hover:bg-[#a90000] hover:text-white"
+              className="inline-flex items-center rounded-full border border-[#a90000] px-5 py-2 text-sm font-semibold text-[#a90000] hover:bg-[#a90000] hover:text-white transition-colors"
             >
               Open Department Admin
             </Link>
@@ -57,27 +57,27 @@ export default function IEPage() {
 
         <div className="mt-8 grid grid-cols-12 gap-5">
           <div className="col-span-12 md:col-span-4">
-            <div className="h-[380px] md:h-[440px] rounded-2xl overflow-hidden bg-gray-200">
-              <img src={dept.images.heroLeft} alt="" className="w-full h-full object-cover" />
+            <div className="group h-[380px] md:h-[440px] rounded-2xl overflow-hidden bg-gray-200 shadow-sm transition-all duration-500 hover:shadow-xl">
+              <img src={dept.images.heroLeft} alt="" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
           </div>
 
           <div className="col-span-12 md:col-span-8 grid grid-cols-12 gap-5">
             <div className="col-span-12">
-              <div className="h-[220px] md:h-[240px] rounded-2xl overflow-hidden bg-gray-200">
-                <img src={dept.images.heroBig} alt="" className="w-full h-full object-cover" />
+              <div className="group h-[220px] md:h-[240px] rounded-2xl overflow-hidden bg-gray-200 shadow-sm transition-all duration-500 hover:shadow-xl">
+                <img src={dept.images.heroBig} alt="" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
             </div>
 
             <div className="col-span-12 md:col-span-6">
-              <div className="h-[160px] rounded-2xl overflow-hidden bg-gray-200">
-                <img src={dept.images.heroSmall1} alt="" className="w-full h-full object-cover" />
+              <div className="group h-[160px] rounded-2xl overflow-hidden bg-gray-200 shadow-sm transition-all duration-500 hover:shadow-xl">
+                <img src={dept.images.heroSmall1} alt="" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
             </div>
 
             <div className="col-span-12 md:col-span-6">
-              <div className="h-[160px] rounded-2xl overflow-hidden bg-gray-200">
-                <img src={dept.images.heroSmall2} alt="" className="w-full h-full object-cover" />
+              <div className="group h-[160px] rounded-2xl overflow-hidden bg-gray-200 shadow-sm transition-all duration-500 hover:shadow-xl">
+                <img src={dept.images.heroSmall2} alt="" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
             </div>
           </div>
@@ -165,12 +165,12 @@ export default function IEPage() {
             <button
               key={year.id}
               onClick={() => setSelectedYear(year)}
-              className="group relative rounded-2xl border-2 border-gray-100 bg-white p-8 text-center transition-all hover:border-[#16a34a] hover:shadow-xl hover:-translate-y-1"
+              className="group relative rounded-2xl border-2 border-gray-100 bg-white p-8 text-center transition-all duration-300 hover:border-[#16a34a] hover:bg-green-50/30 hover:shadow-[0_8px_30px_rgb(22,163,74,0.15)] hover:-translate-y-1"
             >
               <div className="text-sm font-bold text-gray-900 group-hover:text-[#16a34a] transition-colors">
                 {year.label}
               </div>
-              <div className="mt-2 text-xs text-[#16a34a] font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="mt-2 text-xs text-[#16a34a] font-semibold opacity-0 group-hover:opacity-100 transition-opacityuppercase tracking-widest">
                 View Courses →
               </div>
             </button>
@@ -192,7 +192,6 @@ export default function IEPage() {
         {dept.laboratories.rooms.map((room: any, rIdx: number) => (
           <div key={rIdx} className="mt-10 rounded-3xl border border-gray-100 bg-gray-50/50 p-6 md:p-8 transition-all duration-300 hover:border-green-100 hover:bg-white hover:shadow-[0_8px_30px_rgb(22,163,74,0.08)]">
             
-            {/* Room Header */}
             <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4 text-center md:text-left">
               <div>
                 <p className="text-sm font-black text-[#16a34a] tracking-widest uppercase mb-1">
@@ -202,21 +201,17 @@ export default function IEPage() {
               </div>
             </div>
             
-            {/* Image Gallery Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
               {room.images.map((img: string, iIdx: number) => (
                 <div 
                   key={iIdx} 
                   className="group relative h-64 md:h-72 w-full overflow-hidden rounded-2xl bg-gray-200 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_15px_35px_rgb(22,163,74,0.2)] cursor-pointer"
                 >
-                  {/* Image with zoom effect */}
                   <img 
                     src={img} 
                     alt={`${room.name} - View ${iIdx + 1}`} 
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" 
                   />
-                  
-                  {/* Overlay gradient that appears on hover */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-end p-5">
                     <div className="transform translate-y-4 transition-transform duration-300 group-hover:translate-y-0">
                       <span className="text-white font-bold tracking-wide text-sm flex items-center gap-2">
@@ -240,7 +235,7 @@ export default function IEPage() {
           {dept.faculty.members.map((member: any, idx: number) => (
             <div key={`${member.name}-${idx}`} className="flex flex-col items-center text-center group">
               
-              <div className="relative mb-4 h-32 w-32 overflow-hidden rounded-full border-4 border-gray-50 shadow-md transition-all duration-300 group-hover:border-[#16a34a] group-hover:shadow-lg">
+              <div className="relative mb-4 h-32 w-32 overflow-hidden rounded-full border-4 border-gray-50 shadow-md transition-all duration-300 group-hover:border-[#16a34a] group-hover:shadow-[0_8px_25px_rgb(22,163,74,0.2)]">
                 <img 
                   src={member.image} 
                   alt={`Profile of ${member.name}`} 
@@ -259,7 +254,7 @@ export default function IEPage() {
         </div>
       </section>
 
-<section id="careers" className="max-w-6xl mx-auto px-6 pt-16">
+      <section id="careers" className="max-w-6xl mx-auto px-6 pt-16">
         <SectionTitle center eyebrow={dept.title} title={dept.careers.title} subtitle={dept.careers.subtitle} />
 
         <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -288,7 +283,8 @@ export default function IEPage() {
           ))}
         </div>
       </section>
-<section id="contact" className="max-w-6xl mx-auto px-6 pt-16 pb-16">
+
+      <section id="contact" className="max-w-6xl mx-auto px-6 pt-16 pb-16">
         <div className="rounded-3xl border border-gray-100 bg-gray-50 p-6 md:p-10 flex flex-col md:flex-row gap-10 items-start md:items-center justify-between shadow-sm">
           
           <div className="max-w-lg">
@@ -332,30 +328,15 @@ export default function IEPage() {
   );
 }
 
-function Stat({
-  value,
-  label,
-  accentHex,
-}: {
-  value: number;
-  label: string;
-  accentHex: string;
-}) {
+// Child Components
+
+function Stat({ value, label, accentHex }: { value: number; label: string; accentHex: string; }) {
   return (
-    <div>
-      <div className="text-3xl font-extrabold" style={{ color: accentHex }}>
+    <div className="group rounded-2xl border border-transparent p-6 transition-all duration-300 hover:-translate-y-2 hover:border-green-100 hover:bg-green-50/40 hover:shadow-[0_8px_30px_rgb(22,163,74,0.1)]">
+      <div className="text-4xl font-extrabold transition-transform duration-300 group-hover:scale-110" style={{ color: accentHex }}>
         {value}
       </div>
-      <div className="mt-1 text-xs font-semibold text-gray-500">{label}</div>
-    </div>
-  );
-}
-
-function Bullet({ title, text }: { title: string; text: string }) {
-  return (
-    <div>
-      <div className="font-semibold text-gray-900">{title}</div>
-      <div className="mt-1 text-sm text-gray-500">{text}</div>
+      <div className="mt-2 text-xs font-bold uppercase tracking-wider text-gray-500 transition-colors duration-300 group-hover:text-gray-800">{label}</div>
     </div>
   );
 }
@@ -442,4 +423,3 @@ function CurriculumModal({ year, onClose, accentColor }: { year: any; onClose: (
     </div>
   );
 }
-

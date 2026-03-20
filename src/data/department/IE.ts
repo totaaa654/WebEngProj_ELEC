@@ -13,13 +13,12 @@ export const IE = {
     heroSmall1: `${base}/internship.jpeg`,
     heroSmall2: `${base}/internship2.png`,
     peo: `${base}/IE Dept.png`,
-    watermark: `${base}/watermark.png`,
   },
 
   programOverview: {
     heading: "Program Overview",
     text: "Edit this Program Overview text for this department.",
-    stats: { nonTeaching: 0, faculty: 11, students: 147 },
+    stats: { nonTeaching: 0, faculty: 11, students: 567 },
   },
 
   peo: {
