@@ -406,7 +406,7 @@ export default function EEPage() {
                   const isLast = cardIdx === cat.cards.length - 1;
                   const shouldCenter = isLast && cat.cards.length % 3 === 1;
                   return (
-                    <div key={cardIdx} className={`card rounded-2xl border bg-gray-100 p-4 gap-4 text-center flex flex-col items-center ${shouldCenter ? "md:col-start-2" : ""}`}>
+                    <div key={cardIdx} className={`card rounded-2xl  bg-gray-100 p-4 gap-4 text-center flex flex-col items-center ${shouldCenter ? "md:col-start-2" : ""}`}>
                       <div className="text-3xl" aria-hidden="true">{card.icon}</div>
                       <h4 className="mt-2 font-bold text-gray-900">{card.title}</h4>
                       <p className="mt-1 text-sm text-gray-600">{card.text}</p>
@@ -461,7 +461,7 @@ function Bullet({ title, text }: { title: string; text: string }) {
 
 function OutcomeCard({ title, text, iconUrl }: { title: string; text: string; iconUrl: string }) {
   return (
-    <div className="card h-full rounded-2xl border bg-white p-6 text-center flex flex-col">
+    <div className="card h-full rounded-2xl bg-gray-100 p-6 text-center flex flex-col">
       <div id="so-icon-id" className="mx-auto w-15 h-15 rounded-xl bg-red-900 flex items-center justify-center">
         {iconUrl ? (
           <img id="so-icon" src={iconUrl} alt={title} className="w-10 h-10 object-contain" />

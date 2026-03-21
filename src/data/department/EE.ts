@@ -14,7 +14,7 @@ export const EE = {
     heroBig: `${base}/cover.png`,
     heroSmall1: `${base}/passing.png`,
     heroSmall2: `${base}/logo.png`,
-    peo: `${base}/logo.png`,
+    peo: `${base}/ee-logo.png`,
     watermark: `${base}/watermark.png`
   },
 

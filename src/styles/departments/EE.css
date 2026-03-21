@@ -3,6 +3,9 @@
 #so-icon {
   filter: invert(100%)
 }
+#careers .card, #so .card {
+  border: 1px solid #ccc;
+}
 
 .card:hover #so-icon, .card:hover #so-icon-id {
   filter: invert(0%);
@@ -13,7 +16,12 @@
   
   background-color:  #7F1D1D;
   transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: none;
+  box-shadow: 
+  0 12px 30px rgba(0, 0, 0, 0.2),
+  0 0 20px rgba(127, 29, 29, 0.7),
+  0 0 40px rgba(127, 29, 29, 0.5),
+  0 0 60px rgba(127, 29, 29, 0.3); 
 }
 
 #careers .card:hover p, #careers .card:hover h4, #so .card:hover #so-title, #so .card:hover #so-text {
@@ -21,8 +29,12 @@
 }
 
 #careers .card, #so .card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  ;
+   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+#careers .card:hover::after,
+#so .card:hover::after {
+  background: #7F1D1D;
 }
 
 .faculty-card-animated {
