@@ -18,6 +18,21 @@ export const CPE = {
     watermark: `${base}/watermark.png`,
   },
 
+  hero: {
+    university: "Bulacan State University • College of Engineering",
+    description: "The Bachelor of Science in Computer Engineering program builds competence in embedded systems, hardware-software integration, and network infrastructure through high-impact research and industry-aligned practice.",
+    stats: [
+      { label: "AACCUP accreditation", value: "Level II", highlight: true },
+      { label: "Proposed Units", value: "182", highlight: false },
+      { label: "Engineering Excellence", value: "Top 10", highlight: false }
+    ]
+  },
+
+  links: {
+    explore: "#",
+    performance: "#"
+  },
+
   programOverview: {
     heading: "Program Overview",
     text: "EDIT ME: Computer Engineering program overview.",
