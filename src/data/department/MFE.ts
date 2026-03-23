@@ -8,18 +8,18 @@ export const MFE = {
   theme: { accentHex: "#ef4444" },
 
   images: {
-    heroLeft: `${base}/hero-left.jpg`,
-    heroBig: `${base}/hero-big.jpg`,
-    heroSmall1: `${base}/hero-small-1.jpg`,
-    heroSmall2: `${base}/hero-small-2.jpg`,
-    peo: `${base}/peo.jpg`,
+    heroLeft: `${base}/hero-left.png`,
+    heroBig: `${base}/hero-big.png`,
+    heroSmall1: `${base}/hero-small-1.png`,
+    heroSmall2: `${base}/hero-small-2.png`,
+    peo: `${base}/peo.png`,
     watermark: `${base}/watermark.png`,
   },
 
   programOverview: {
     heading: "Program Overview",
     text: "Edit this Program Overview text for this department.",
-    stats: { nonTeaching: 0, faculty: 0, students: 0 },
+    stats: { nonTeaching: 0, faculty: 7, students: 342 },
   },
 
   peo: {
@@ -45,7 +45,7 @@ export const MFE = {
   curriculum: {
     title: "Curriculum Overview",
     text: "Edit curriculum overview paragraph here.",
-    bullets: ["Bullet 1", "Bullet 2", "Bullet 3"],
+    bullets: ["Bullet 1", "Bullet 2", "Bullet 3", "Bullet 4"],
   },
 
   laboratories: {
@@ -56,8 +56,13 @@ export const MFE = {
   faculty: {
     title: "Faculty",
     members: [
-      { name: "Engr. Sample Name", role: "Department Chair" },
-      { name: "Engr. Sample Name", role: "Faculty" },
+      { name: "Engr. Nancy M. Santiago", role: "Department Chair", image: `${base}/MFE_Chair.jpg` },
+      { name: "Engr. Rachel C. Bual", role: "Faculty", image: `${base}/MFE_Faculty1.jpg` },
+      { name: "Engr. Cyrus Lawrence C. Bual", role: "Faculty", image: `${base}/MFE_Faculty2.jpg` },
+      { name: "Engr. Jayvee L. De Robles", role: "Faculty", image: `${base}/MFE_Faculty3.jpg` },
+      { name: "Engr. Niño Joselito D. Almario", role: "Faculty", image: `${base}/MFE_Faculty4.jpg` },
+      { name: "Engr. Precious Rose F. Galvez", role: "Faculty", image: `${base}/MFE_Faculty5.jpg` },
+      { name: "Engr. Romano A. Gabrillo", role: "Faculty", image: `${base}/MFE_Faculty6.jpg` },
     ],
   },
 
