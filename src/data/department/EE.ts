@@ -37,7 +37,7 @@ export const EE = {
     stats: {
       nonTeaching: 0,
       faculty: 16,
-      students: 512
+      students: 555
     }
   },
 
