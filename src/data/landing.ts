@@ -36,7 +36,49 @@ export const landingPageData = {
       title: "Facilities",
       assignedGroup: "Jones, Colleen Iris P",
       statusLabel: "RESERVED SECTION",
-      highlights: ["Placeholder Facility 1", "Placeholder Facility 2"],
+      highlights: ["Lorem", "Ispum", "Dolor"],
+      images: [
+        { 
+          url: "/departments/MFE/watermark.png", 
+          caption: "Facility 1" 
+        },
+        { 
+          url: "/departments/MFE/watermark.png",  
+          caption: "Facility 2" 
+        },
+        { 
+          url: "/departments/MFE/watermark.png", 
+          caption: "Facility 3"  
+        },
+        { 
+          url: "/departments/MFE/watermark.png", 
+          caption: "Facility 4" 
+        },
+        { 
+          url: "/departments/MFE/watermark.png", 
+          caption: "Facility 5" 
+        },
+        { 
+          url: "/departments/MFE/watermark.png", 
+          caption: "Facility 6" 
+        },
+        { 
+          url: "/departments/MFE/watermark.png", 
+          caption: "Facility 7" 
+        },
+        { 
+          url: "/departments/MFE/watermark.png", 
+          caption: "Facility 8" 
+        },
+        { 
+          url: "/departments/MFE/watermark.png", 
+          caption: "Facility 9" 
+        },
+        { 
+          url: "/departments/MFE/watermark.png", 
+          caption: "Facility 10" 
+        },
+      ],
     },
     statistics: {
       id: "statistics",
