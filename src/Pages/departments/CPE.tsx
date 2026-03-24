@@ -520,7 +520,6 @@ export default function CPEPage() {
           </div>
         </div>
       </section>
-
       {/* --- CURRICULUM SECTION --- */}
       <section
         id="curriculum"
@@ -616,7 +615,6 @@ export default function CPEPage() {
           </div>
         </div>
       </section>
-
       {/* --- LABORATORIES SECTION --- */}
       <section
         id="laboratories"
@@ -672,56 +670,143 @@ export default function CPEPage() {
           </div>
         </div>
       </section>
-
-      {/* --- FACULTY SECTION --- */}
+      {/* --- FACULTY SECTION : SECURE ID BADGE APPROACH --- */}
       <section
         id="faculty"
-        className="relative w-full bg-slate-950 py-20 overflow-hidden"
+        className="relative w-full bg-slate-950 py-24 overflow-hidden border-t border-slate-900"
       >
-        {/* Decorative Background Grid (Mimics the tech/circuit vibe) */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] opacity-30" />
+        {/* Ambient Tech Background */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950 z-0" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:3rem_3rem] opacity-20 z-0" />
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6">
-          {/* Wrapped in a div to ensure any inherited text color for the title becomes yellow/light */}
-          <div className="text-yellow-500 [&_h2]:text-white">
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
+          <div className="text-yellow-500 [&_h2]:text-white mb-16 text-center">
+            <p className="text-xs font-mono tracking-[0.3em] text-slate-500 mb-4">
+              // SYS.DIR.FACULTY_ROSTER
+            </p>
             <SectionTitle
               center
               eyebrow={dept.title}
-              title={dept.faculty.title}
+              title="Department Faculty"
             />
           </div>
 
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-            {dept.faculty.members.map((member, idx) => (
-              <div
-                key={`${member.name}-${idx}`}
-                className="flex items-center gap-6 rounded-2xl border-2 border-yellow-500 bg-slate-900/80 backdrop-blur-sm p-6 shadow-[0_0_15px_rgba(234,179,8,0.15)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(234,179,8,0.3)]"
-              >
-                {/* Portrait Placeholder - Updated to have a matching yellow border */}
-                <div className="h-20 w-20 shrink-0 overflow-hidden rounded-full border-2 border-yellow-500 bg-slate-800">
-                  {/* Replace the src with your actual dynamic image path */}
-                  <img
-                    src="/api/placeholder/80/80"
-                    alt={`${member.name} portrait`}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
+          {/* ID Badge Grid Layout */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {dept.faculty.members.map((member: any, idx: number) => {
+              const isLeadership = idx === 0;
 
-                {/* Text Content - Updated for Dark Mode Readability */}
-                <div>
-                  <h3 className="text-xl font-bold text-yellow-400 uppercase tracking-tight">
-                    {member.name}
-                  </h3>
-                  <p className="mt-1 text-sm font-semibold text-slate-300 uppercase tracking-wider">
-                    {member.role}
-                  </p>
+              return (
+                <div
+                  key={`${member.name}-${idx}`}
+                  className={`group relative flex flex-col rounded-xl border bg-slate-900 overflow-hidden transition-all duration-300 hover:-translate-y-2 cursor-default ${
+                    isLeadership
+                      ? "border-yellow-500/50 shadow-[0_0_20px_rgba(234,179,8,0.1)] hover:shadow-[0_15px_30px_-5px_rgba(234,179,8,0.3)]"
+                      : "border-slate-800 hover:border-blue-500/50 hover:shadow-[0_15px_30px_-5px_rgba(59,130,246,0.2)]"
+                  }`}
+                >
+                  {/* Animated Laser Scanner Line */}
+                  <div
+                    className={`absolute left-0 w-full h-[2px] -translate-y-[20px] group-hover:translate-y-[400px] transition-transform duration-[1.5s] ease-in-out opacity-0 group-hover:opacity-100 z-50 pointer-events-none ${
+                      isLeadership
+                        ? "bg-yellow-400 shadow-[0_0_15px_#facc15]"
+                        : "bg-blue-400 shadow-[0_0_15px_#60a5fa]"
+                    }`}
+                  />
+
+                  {/* Top Lanyard/Clip Area */}
+                  <div className="h-8 w-full bg-slate-950 border-b border-slate-800 flex justify-center items-center">
+                    <div className="w-12 h-2 rounded-full bg-slate-800/80 shadow-inner" />
+                  </div>
+
+                  <div className="p-6 flex flex-col flex-grow">
+                    {/* Badge Header: Microchip & Security Level */}
+                    <div className="flex justify-between items-start mb-6">
+                      {/* SVG Microchip */}
+                      <svg
+                        className={`w-8 h-8 ${isLeadership ? "text-yellow-500" : "text-slate-600 group-hover:text-blue-400"} transition-colors`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+                        />
+                      </svg>
+
+                      <div className="text-right">
+                        <p className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">
+                          Clearance
+                        </p>
+                        <p
+                          className={`text-xs font-black tracking-widest uppercase ${isLeadership ? "text-yellow-500" : "text-blue-500"}`}
+                        >
+                          {isLeadership ? "LVL 01 : CHAIR" : "LVL 02 : INST"}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Portrait Area */}
+                    <div className="relative mb-6">
+                      <div
+                        className={`w-full aspect-square overflow-hidden rounded-lg border-2 bg-slate-950 transition-colors duration-500 ${
+                          isLeadership
+                            ? "border-yellow-500/30 group-hover:border-yellow-400"
+                            : "border-slate-800 group-hover:border-blue-500/50"
+                        }`}
+                      >
+                        <img
+                          src="/api/placeholder/300/300"
+                          alt={`${member.name} portrait`}
+                          className="w-full h-full object-cover transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-105"
+                        />
+                        {/* Digital Glitch/Overlay effect on the image */}
+                        <div
+                          className={`absolute inset-0 opacity-20 mix-blend-overlay ${isLeadership ? "bg-yellow-500" : "bg-blue-500"}`}
+                        />
+                      </div>
+                      {/* Registration Number Watermark */}
+                      <div className="absolute -bottom-2 -right-2 bg-slate-900 border border-slate-700 px-2 py-1 rounded text-[8px] font-mono text-slate-400">
+                        ID-{Math.floor(Math.random() * 9000) + 1000}-
+                        {idx.toString().padStart(2, "0")}
+                      </div>
+                    </div>
+
+                    {/* Info Area */}
+                    <div className="mt-auto">
+                      <h3 className="text-lg font-bold text-white uppercase tracking-tight leading-tight mb-2">
+                        {member.name}
+                      </h3>
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`w-1.5 h-1.5 rounded-full ${isLeadership ? "bg-yellow-500 animate-pulse" : "bg-blue-500"}`}
+                        />
+                        <p className="text-xs font-mono text-slate-400 uppercase tracking-wider">
+                          {member.role}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bottom Tech Barcode (CSS Generated) */}
+                  <div className="mt-auto px-6 pb-4">
+                    <div
+                      className={`w-full h-6 opacity-30 group-hover:opacity-70 transition-opacity duration-300`}
+                      style={{
+                        backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, ${isLeadership ? "#facc15" : "#fff"} 2px, ${isLeadership ? "#facc15" : "#fff"} 4px, transparent 4px, transparent 5px, ${isLeadership ? "#facc15" : "#fff"} 5px, ${isLeadership ? "#facc15" : "#fff"} 6px, transparent 6px, transparent 10px, ${isLeadership ? "#facc15" : "#fff"} 10px, ${isLeadership ? "#facc15" : "#fff"} 12px)`,
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
-
+      ``
       {/* --- CAREERS SECTION --- */}
       <section id="careers" className="max-w-6xl mx-auto px-6 pt-16">
         <SectionTitle
@@ -746,7 +831,6 @@ export default function CPEPage() {
           ))}
         </div>
       </section>
-
       {/* --- CONTACT SECTION --- */}
       <section id="contact" className="max-w-6xl mx-auto px-6 pt-16">
         <div className="rounded-2xl border bg-gray-50 p-6 md:p-8">
@@ -787,4 +871,3 @@ function Stat({
     </div>
   );
 }
-

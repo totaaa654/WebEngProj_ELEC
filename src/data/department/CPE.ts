@@ -97,7 +97,6 @@ export const CPE = {
     title: "Curriculum Overview",
     text: "The BSCpE curriculum at BulSU transitioned to a four-year program in 2018. It is designed to balance general engineering sciences, hardware-software integration, and professional specialization.",
     
-    // Kept your original bullets just in case you use them elsewhere
     bullets: [
         "Mathematics & Sciences: Calculus (1 & 2), Differential Equations, Physics for Engineers, and Chemistry.",
         "Core Engineering: Programming Logic & Design, Computer Fundamentals, and Circuits.",
@@ -105,7 +104,7 @@ export const CPE = {
         "Capstone/Thesis: A significant portion of the final years is dedicated to a design project or undergraduate thesis (similar to your current pork freshness project).",
     ],
     
-    // NEW: Interactive Tab Data
+    // Interactive Tab Data
     yearLevels: [
       {
         year: "1st Year",
@@ -167,21 +166,91 @@ export const CPE = {
   faculty: {
     title: "Faculty",
     members: [
-      { name: "Engr. Maria Lorena SP. Villena", role: "Program Chair, Faculty" },
-      { name: "Engr. Alexander M. Aquino", role: "Faculty" },
-      { name: "Dr. Lech Walesa M. Navarra", role: "Faculty" },
-      { name: "Engr. Bernard G. Yasay ", role: "Faculty" },
-      { name: "Engr. Catherine V. Dela Cruz", role: "Faculty" },
-      { name: "Engr. Richard Y. Dela Cruz ", role: "Faculty" },
-      { name: "Dr. Ma. Magdalena V. Gatdula", role: "University Registrar, Faculty" },
-      { name: "Dr. Monaliza S. Jimenez", role: "Faculty" },
-      { name: "Engr. Julius Vincent M. Abanel ", role: "Part-Time Instructor, Faculty" },
-      { name: "Engr. Arlyne De Jesus ", role: "Part-Time Instructor, Faculty" },
-      { name: "Engr. Hiroyoshi  DG. Arai", role: "Part-Time Instructor, Faculty" },
-      { name: "Engr. Robert Justin S. Chavez", role: "Faculty" },
-      { name: "Engr. Albert C. Cruz Jr.", role: "Part-Time Instructor, Faculty" },
-      { name: "Engr. Maria Ana G. Dangan", role: "Guest Lecturer, Faculty" },
-      { name: "Engr. Sheila May M. Liwag", role: "Guest Lecturer, Faculty" },
+      { 
+        name: "Engr. Maria Lorena SP. Villena", 
+        role: "Program Chair, Faculty",
+        imageUrl: "/departments/CPE/faculty/lorena_villena.jpg"
+      },
+      { 
+        name: "Engr. Alexander M. Aquino", 
+        role: "Faculty",
+        imageUrl: "/departments/CPE/faculty/alexander_aquino.jpg"
+      },
+      { 
+        name: "Dr. Lech Walesa M. Navarra", 
+        role: "Faculty",
+        imageUrl: "/departments/CPE/faculty/lech_navarra.jpg"
+      },
+      { 
+        name: "Engr. Bernard G. Yasay", 
+        role: "Faculty",
+        imageUrl: "/departments/CPE/faculty/bernard_yasay.jpg"
+      },
+      { 
+        name: "Engr. Catherine V. Dela Cruz", 
+        role: "Faculty",
+        imageUrl: "/departments/CPE/faculty/catherine_delacruz.jpg"
+      },
+      { 
+        name: "Engr. Richard Y. Dela Cruz", 
+        role: "Faculty",
+        imageUrl: "/departments/CPE/faculty/richard_delacruz.jpg"
+      },
+      { 
+        name: "Dr. Ma. Magdalena V. Gatdula", 
+        role: "University Registrar, Faculty",
+        imageUrl: "/departments/CPE/faculty/magdalena_gatdula.jpg"
+      },
+      { 
+        name: "Dr. Monaliza S. Jimenez", 
+        role: "Faculty",
+        imageUrl: "/departments/CPE/faculty/monaliza_jimenez.jpg"
+      },
+      { 
+        name: "Engr. Julius Vincent M. Abanel", 
+        role: "Part-Time Instructor, Faculty",
+        imageUrl: "/departments/CPE/faculty/julius_abanel.jpg"
+      },
+      { 
+        name: "Engr. Arlyne Joy De Jesus", 
+        role: "Part-Time Instructor, Faculty",
+        imageUrl: "/departments/CPE/faculty/arlyne_dejesus.jpg"
+      },
+      { 
+        name: "Engr. Januarius Cruz", 
+        role: "Part-Time Instructor, Faculty",
+        imageUrl: "/departments/CPE/faculty/januarius_cruz.jpg"
+      },
+      { 
+        name: "Engr. Jannine Solana Muñoz", 
+        role: "Part-Time Instructor, Faculty",
+        imageUrl: "/departments/CPE/faculty/jannine_munoz.jpg"
+      },
+      { 
+        name: "Engr. Hiroyoshi DG. Arai", 
+        role: "Part-Time Instructor, Faculty",
+        imageUrl: "/departments/CPE/faculty/hiroyoshi_arai.jpg"
+      },
+      { 
+        name: "Engr. Robert Justin S. Chavez", 
+        role: "Faculty",
+        imageUrl: "/departments/CPE/faculty/robert_chavez.jpg"
+      },
+      { 
+        name: "Engr. Albert C. Cruz Jr.", 
+        role: "Part-Time Instructor, Faculty",
+        imageUrl: "/departments/CPE/faculty/albert_cruz.jpg"
+      },
+      { 
+        name: "Engr. Maria Ana G. Dangan", 
+        role: "Guest Lecturer, Faculty",
+        imageUrl: "/departments/CPE/faculty/maria_dangan.jpg"
+      },
+      { 
+        name: "Engr. Sheila May M. Liwag", 
+        role: "Guest Lecturer, Faculty",
+        imageUrl: "/departments/CPE/faculty/sheila_liwag.jpg"
+      },
     ],
   },
 
