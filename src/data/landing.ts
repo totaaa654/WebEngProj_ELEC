@@ -30,10 +30,8 @@ export const landingPageData = {
     missionVision: {
       id: "mission-vision",
       title: "Mission & Vision",
-      assignedGroup: "Roxas, Aiam Airron L",
-      statusLabel: "RESERVED SECTION",
-      missionText: "Placeholder mission statement.",
-      visionText: "Placeholder vision statement.",
+      missionText: "The primary thrust of the College of Engineering is to provide instruction and training in the various engineering disciplines reinforced with desirable work attitudes and ideals, leadership skills and work competencies capable of responding to the needs of the region and the demands of global standards.",
+      visionText: "Empower engineering graduates making them responsive to ever changing local and international environment.",
     },
     departmentGrid: {
       id: "department-grid",

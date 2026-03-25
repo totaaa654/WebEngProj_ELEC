@@ -128,11 +128,80 @@ function DepartmentGrid() {
 
 function MissionVisionSection({ data }: { data: Sections["missionVision"] }) {
   return (
-    <section id="mission-vision" className="max-w-6xl mx-auto px-6 py-10">
-      <SectionCard data={data}>
-        <p className="mt-3 text-sm text-gray-600">Mission: {data.missionText}</p>
-        <p className="mt-1 text-sm text-gray-600">Vision: {data.visionText}</p>
-      </SectionCard>
+    <section id="mission-vision" className="max-w-6xl mx-auto px-6 py-16">
+      <div className="relative">
+        {/* Section Header */}
+        <div className="mb-12">
+          <p className="text-sm font-bold tracking-[0.2em] text-orange-500 uppercase mb-2">
+            COLLEGE OF ENGINEERING
+          </p>
+          <h2 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#a90000] to-orange-500 tracking-tighter">
+            {data.title}
+          </h2>
+        </div>
+
+        {/* Two-Column Grid for Separate Hover Effects */}
+        <div className="grid md:grid-cols-2 gap-8 relative z-10">
+
+          {/* Mission Card */}
+          <div className="group relative overflow-hidden rounded-3xl border border-gray-100 bg-white p-8 md:p-10 transition-all duration-500 hover:-translate-y-3 hover:border-orange-300
+      hover:shadow-[0_20px_50px_rgba(169,0,0,0.12)]">
+            {/* Lively Animated Background Glow */}
+            <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[#a90000] opacity-0 blur-[60px] transition-opacity duration-500 group-hover:opacity-20 pointer-events-none"></div>
+
+            {/* Top Border Animation */}
+            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#a90000] to-orange-500 transform scale-x-0 transition-transform duration-500 origin-left
+      group-hover:scale-x-100 rounded-t-3xl"></div>
+
+            <div className="relative z-10">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="h-12 w-1.5 bg-[#a90000] rounded-full"></div>
+                <h3 className="text-3xl font-black text-gray-900 group-hover:text-[#a90000] transition-colors duration-300 uppercase tracking-widest">
+                  Mission
+                </h3>
+              </div>
+              <p className="text-xl text-gray-600 leading-relaxed font-medium transition-colors duration-300 group-hover:text-gray-900">
+                {data.missionText}
+              </p>
+            </div>
+
+            {/* Decorative Icon or Watermark */}
+            <div className="absolute bottom-4 right-6 text-8xl font-black text-gray-50 select-none transition-colors duration-500 group-hover:text-orange-50">
+              M
+            </div>
+          </div>
+
+          {/* Vision Card */}
+          <div className="group relative overflow-hidden rounded-3xl border border-gray-100 bg-white p-8 md:p-10 transition-all duration-500 hover:-translate-y-3 hover:border-orange-300
+      hover:shadow-[0_20px_50px_rgba(234,88,12,0.12)]">
+            {/* Lively Animated Background Glow */}
+            <div className="absolute -left-10 -bottom-10 h-40 w-40 rounded-full bg-orange-400 opacity-0 blur-[60px] transition-opacity duration-500 group-hover:opacity-20
+      pointer-events-none"></div>
+
+            {/* Top Border Animation */}
+            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-orange-500 to-[#a90000] transform scale-x-0 transition-transform duration-500 origin-right
+      group-hover:scale-x-100 rounded-t-3xl"></div>
+
+            <div className="relative z-10">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="h-12 w-1.5 bg-orange-500 rounded-full"></div>
+                <h3 className="text-3xl font-black text-gray-900 group-hover:text-orange-600 transition-colors duration-300 uppercase tracking-widest">
+                  Vision
+                </h3>
+              </div>
+              <p className="text-xl text-gray-600 leading-relaxed font-medium transition-colors duration-300 group-hover:text-gray-900">
+                {data.visionText}
+              </p>
+            </div>
+
+            {/* Decorative Icon or Watermark */}
+            <div className="absolute bottom-4 right-6 text-8xl font-black text-gray-50 select-none transition-colors duration-500 group-hover:text-red-50">
+              V
+            </div>
+          </div>
+
+        </div>
+      </div>
     </section>
   );
 }
