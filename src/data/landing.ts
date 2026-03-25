@@ -1,18 +1,37 @@
 export const landingPageData = {
+  navbar: {
+    logoSrc: "/COE.svg",
+    logoAlt: "Bulacan State University College of Engineering",
+    links: [
+      { label: "Home", href: "#hero", isRoute: false },
+      { label: "Department", href: "#programs-grid", isRoute: false },
+      { label: "Facilities", href: "#facilities", isRoute: false },
+      { label: "News", href: "#news", isRoute: false },
+      { label: "Alumni", href: "https://coebulsu-alumni-tracker.vercel.app/", isRoute: false  }
+    ],
+    contactLabel: "Contact",
+    contactHref: "#contact",
+  },
   hero: {
-    eyebrow: "LANDING PAGE • HERO SECTION",
-    title: "Bulacan State University\nCollege of Engineering",
-    primaryButtonLabel: "Enter Department Pages",
+    eyebrow: "BULACAN STATE UNIVERSITY",
+    title: "COLLEGE OF\nENGINEERING",
+    primaryButtonLabel: "See Departments",
     primaryButtonHref: "/departments",
+    leftWatermarkSrc: "/departments/ME/watermark.png",
+    rightWatermarkSrc: "/departments/ME/watermark.png",
+    stats: [
+      { icon: "send", value: "4,300", label: "Current students" },
+      { icon: "building", value: "8", label: "Engineering Departments" },
+      { icon: "calendar", value: "2025", label: "Latest board cycle" },
+      { icon: "users", value: "4", label: "Board exam programs" },
+    ],
   },
   sections: {
     missionVision: {
       id: "mission-vision",
       title: "Mission & Vision",
-      assignedGroup: "Roxas, Aiam Airron L",
-      statusLabel: "RESERVED SECTION",
-      missionText: "Placeholder mission statement.",
-      visionText: "Placeholder vision statement.",
+      missionText: "The primary thrust of the College of Engineering is to provide instruction and training in the various engineering disciplines reinforced with desirable work attitudes and ideals, leadership skills and work competencies capable of responding to the needs of the region and the demands of global standards.",
+      visionText: "Empower engineering graduates making them responsive to ever changing local and international environment.",
     },
     departmentGrid: {
       id: "department-grid",
@@ -40,12 +59,19 @@ export const landingPageData = {
     },
     statistics: {
       id: "statistics",
-      title: "Statistics",
+      title: "College Statistics",
       assignedGroup: "Pascual, Alyssa S.",
-      statusLabel: "RESERVED SECTION",
-      stats: [
-        { label: "Programs", value: "8" },
-        { label: "Students", value: "0" },
+      statusLabel: "ACTIVE SECTION",
+      totalStudents: "4,300",
+      departmentStats: [
+        { dept: "CE", fullName: "Civil Engineering", students: 780, hasBoardExam: true, passingRate: "63.64%", latestExamDate: "April 2025" },
+        { dept: "CPE", fullName: "Computer Engineering", students: 733, hasBoardExam: false },
+        { dept: "EE", fullName: "Electrical Engineering", students: 555, hasBoardExam: true, passingRate: "74.12%", latestExamDate: "April 2025" },
+        { dept: "ECE", fullName: "Electronics Engineering", students: 462, hasBoardExam: true, passingRate: "53.1%", latestExamDate: "October 2025" },
+        { dept: "IE", fullName: "Industrial Engineering", students: 567, hasBoardExam: false },
+        { dept: "ME", fullName: "Mechanical Engineering", students: 512, hasBoardExam: true, passingRate: "66.99%", latestExamDate: "August 2025" },
+        { dept: "MFE", fullName: "Manufacturing Engineering", students: 330, hasBoardExam: false },
+        { dept: "MEE", fullName: "Mechatronics Engineering", students: 361, hasBoardExam: false },
       ],
     },
     contact: {
