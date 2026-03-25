@@ -332,45 +332,51 @@ function TrackModal({ isOpen, onClose, tracks, base }: { isOpen: boolean, onClos
   );
 }
 
-function ImagePreviewModal({ isOpen, onClose, images }: { isOpen: boolean, onClose: () => void, images: string[] }) {
+function ImagePreviewModal({ isOpen, onClose, images, title, eyebrow }: { isOpen: boolean, onClose: () => void, images: string[], title: string, eyebrow: string }) {
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center px-6">
       <div 
-        className="absolute inset-0 bg-navy-900/90 backdrop-blur-md ce-animate-fade-in"
+        className="absolute inset-0 bg-navy-900/95 backdrop-blur-md ce-animate-fade-in"
         onClick={onClose}
       ></div>
       
       <div className="relative bg-white rounded-[3rem] shadow-2xl w-full max-w-5xl overflow-hidden ce-animate-scale-in max-h-[90vh] flex flex-col">
-        <div className="ce-bg-navy p-8 text-white flex justify-between items-center">
-          <div>
-            <div className="text-[10px] font-black ce-text-gold tracking-[0.4em] uppercase mb-1">Performance Visualization</div>
-            <h3 className="text-2xl font-black uppercase tracking-tighter italic">Licensure <span className="ce-text-gold">Graphs</span></h3>
+        <div className="ce-bg-navy p-8 text-white flex justify-between items-center relative overflow-hidden">
+          {/* Background Decorative Text */}
+          <div className="absolute right-0 bottom-0 text-6xl font-black text-white/[0.03] select-none pointer-events-none translate-y-4 uppercase italic">
+            {title.split(" ").pop()}
           </div>
-          <button onClick={onClose} className="text-white/40 hover:text-white transition-colors p-2">
+
+          <div className="relative z-10">
+            <div className="text-[10px] font-black ce-text-gold tracking-[0.4em] uppercase mb-1">{eyebrow}</div>
+            <h3 className="text-2xl font-black uppercase tracking-tighter italic">{title.split(" ").slice(0, -1).join(" ")} <span className="ce-text-gold">{title.split(" ").pop()}</span></h3>
+          </div>
+          <button onClick={onClose} className="text-white/40 hover:text-white transition-colors p-2 relative z-10">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
           </button>
         </div>
         
-        <div className="p-10 bg-gray-50 overflow-y-auto flex-1">
+        <div className="p-10 bg-gray-50 overflow-y-auto flex-1 custom-scrollbar">
           <div className="grid grid-cols-1 gap-12">
             {images.map((img, idx) => (
               <div key={idx} className="space-y-4">
                 <div className="text-xs font-black ce-text-navy/40 uppercase tracking-widest flex items-center gap-3">
                    <span className="w-8 h-px ce-bg-gold"></span>
-                   Graph Analysis 0{idx + 1}
+                   Visual Document 0{idx + 1}
                 </div>
-                <div className="rounded-[2rem] overflow-hidden border-4 border-white shadow-2xl">
-                  <img src={img} alt={`Performance Graph ${idx + 1}`} className="w-full h-auto" />
+                <div className="rounded-[2rem] overflow-hidden border-4 border-white shadow-2xl bg-white">
+                  <img src={img} alt={`${title} ${idx + 1}`} className="w-full h-auto" />
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="p-6 bg-white border-t border-gray-100 text-center">
-           <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Bulacan State University • Civil Engineering Department</p>
+        <div className="p-6 bg-white border-t border-gray-100 flex justify-between items-center">
+           <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Bulacan State University • Civil Engineering</p>
+           <button onClick={onClose} className="text-[10px] font-black ce-text-navy uppercase tracking-widest hover:ce-text-gold transition-colors">Close Preview</button>
         </div>
       </div>
     </div>
@@ -382,6 +388,8 @@ export default function CEPage() {
   const [activeId, setActiveId] = useState<string>("home");
   const [isTrackModalOpen, setIsTrackModalOpen] = useState(false);
   const [isGraphModalOpen, setIsGraphModalOpen] = useState(false);
+  const [isChartModalOpen, setIsChartModalOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   const dept = useMemo(
     () => mergeDeptWithOverrides(baseDept),
@@ -390,8 +398,20 @@ export default function CEPage() {
 
   const baseDir = "/departments/CE"; // Ensure baseDir is correct for downloads
   const graphImages = [`${baseDir}/graph1.png`, `${baseDir}/graph2.png`];
+  const chartImages = [`${baseDir}/chart1.png`, `${baseDir}/chart2.png`];
 
   const heroImages = useMemo(() => dept.images.heroCarousel, [dept.images.heroCarousel]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / totalHeight) * 100;
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const observerOptions = {
@@ -409,7 +429,7 @@ export default function CEPage() {
     };
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
-    const sections = ["home", "about", "cele", "peo", "so", "curriculum", "laboratories", "faculty", "careers"];
+    const sections = ["home", "about", "cele", "peo", "so", "curriculum", "careers", "laboratories", "faculty"];
     
     sections.forEach(id => {
       const el = document.getElementById(id);
@@ -441,6 +461,14 @@ export default function CEPage() {
   return (
     <div className="bg-white ce-text-dark selection:bg-gold-200 overflow-x-hidden">
       <Navbar onNav={onNav as any} activeId={activeId as any} />
+      
+      {/* Scroll Progress Bar */}
+      <div className="fixed top-[72px] md:top-[88px] left-0 w-full h-1 z-[45] pointer-events-none">
+        <div 
+          className="h-full ce-bg-gold transition-all duration-150 ease-out shadow-[0_0_10px_rgba(212,175,55,0.5)]"
+          style={{ width: `${scrollProgress}%` }}
+        ></div>
+      </div>
 
       {/* Hero Section - Initial Entrance */}
       <section id="home" className="max-w-6xl mx-auto px-6 pt-16">
@@ -865,6 +893,22 @@ export default function CEPage() {
             </FadeInSection>
           ))}
         </div>
+
+        {/* Organizational Chart Button */}
+        <FadeInSection delay="ce-delay-5" className="mt-20 flex justify-center">
+            <button 
+              onClick={() => setIsChartModalOpen(true)}
+              className="group relative flex items-center gap-6 bg-white border-2 ce-border-gold px-12 py-6 rounded-3xl hover:ce-bg-navy hover:border-transparent transition-all duration-500 shadow-2xl shadow-gold-500/10"
+            >
+              <div className="flex flex-col items-start">
+                <span className="text-[10px] font-black ce-text-gold uppercase tracking-[0.4em] group-hover:text-white/40 transition-colors">Hierarchy</span>
+                <span className="text-base font-black ce-text-navy uppercase tracking-widest group-hover:text-white transition-colors">Organizational Chart</span>
+              </div>
+              <div className="w-12 h-12 rounded-2xl ce-bg-light flex items-center justify-center text-navy group-hover:ce-bg-gold transition-all shadow-inner">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              </div>
+            </button>
+        </FadeInSection>
       </section>
 
       <Footer />
@@ -873,6 +917,16 @@ export default function CEPage() {
         isOpen={isGraphModalOpen} 
         onClose={() => setIsGraphModalOpen(false)} 
         images={graphImages} 
+        title="Performance Graphs"
+        eyebrow="Licensure Visualization"
+      />
+
+      <ImagePreviewModal 
+        isOpen={isChartModalOpen} 
+        onClose={() => setIsChartModalOpen(false)} 
+        images={chartImages} 
+        title="Organizational Charts"
+        eyebrow="Department Hierarchy"
       />
     </div>
   );
