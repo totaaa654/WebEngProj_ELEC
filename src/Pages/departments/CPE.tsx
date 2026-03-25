@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, DraftingCompass, Cpu } from "lucide-react";
 import { CircuitBackground } from "../../../public/departments/CPE/Components/CircuitBackground";
-// 1. Updated Import
+// 1. Updated Import  
+import CpeScrollButton from "../../../public/departments/CPE/Components/CpeScrollButton";
 import CPEnavbar from "../../components/CPEnavbar";
 import SectionTitle from "../../components/SectionTitle";
 import Footer from "../../components/Footer";
@@ -991,6 +992,9 @@ export default function CPEPage() {
           </div>
         </div>
       </section>
+
+      <CpeScrollButton />
+
       <Footer />
     </div>
   );
