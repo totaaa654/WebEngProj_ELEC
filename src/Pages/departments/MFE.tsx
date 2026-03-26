@@ -1,11 +1,9 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import MFENavbar from "../../components/MFEnavbar";
-import SectionTitle from "../../components/SectionTitle";
 import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
 import { MFE } from "../../data/department/MFE";
 import "../../styles/departments/MFE.css";
-import Footer from "@/components/Footer";
 
 function StatItem({ value, label }: { value: number | string; label: string }) {
   return (
