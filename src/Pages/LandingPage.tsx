@@ -7,6 +7,7 @@ import {
   mergeLandingWithOverrides,
 } from "../lib/landingAdmin";
 import { Mail } from "lucide-react";
+import Footer from "../components/Footer";
 
 import CE_Img from '../assets/Civil_Engineering.jpg';
 import CPE_Img from '../assets/Computer_Engineering.jpg';
@@ -1123,7 +1124,7 @@ export default function LandingPage() {
         <StatisticsSection data={sections.statistics} />
         <ContactSection data={sections.contact} />
       </main>
-      <LandingFooterSection data={sections.footer} />
+      <Footer />
     </div>
   );
 }
