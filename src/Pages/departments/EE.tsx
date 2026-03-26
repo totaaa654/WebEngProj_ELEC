@@ -610,9 +610,9 @@ export default function EEPage() {
               
               <div className="flex flex-wrap justify-center md:justify-start items-center gap-3 md:gap-4">
                 <img src="/src/assets/bulsu.svg" alt="BULSU" className="w-12 h-12 md:w-16 md:h-16 object-contain" />
-                <img src="/public/COE.svg" alt="COE" className="w-12 h-12 md:w-16 md:h-16 object-contain" />
-                <img src="/public/departments/EE/ee-logo.png" alt="EE" className="w-12 h-12 md:w-16 md:h-16 object-contain" />
-                <img src="/public/departments/EE/watermark.png" alt="IIEE" className="w-12 h-12 md:w-16 md:h-16 object-contain" />
+                <img src="/COE.svg" alt="COE" className="w-12 h-12 md:w-16 md:h-16 object-contain" />
+                <img src="/departments/EE/ee-logo.png" alt="EE" className="w-12 h-12 md:w-16 md:h-16 object-contain" />
+                <img src="/departments/EE/watermark.png" alt="IIEE" className="w-12 h-12 md:w-16 md:h-16 object-contain" />
               </div>
               
               <div className="space-y-1">
