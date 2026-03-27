@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-      - develop
-      - "feature/**"
   pull_request:
     branches:
       - main
@@ -24,7 +22,21 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          echo "Installing dependencies..."
+          npm install
+
+      - name: Run lint
+        run: |
+          echo "Running lint checks..."
+          npm run lint --if-present
+
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          npm test --if-present
 
       - name: Build project
-        run: npm run build
+        run: |
+          echo "Building project..."
+          npm run build
