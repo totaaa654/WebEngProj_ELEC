@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - "feature/**"
   pull_request:
     branches:
       - main
@@ -40,3 +41,11 @@ jobs:
         run: |
           echo "Building project..."
           npm run build
+
+      - name: Trigger Render Deploy Hook
+        if: github.ref == 'refs/heads/main' && success()
+        run: |
+          echo "CI passed. Triggering Render deploy..."
+          curl "$RENDER_DEPLOY_HOOK_URL"
+        env:
+          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
