@@ -28,7 +28,7 @@ const heroStatIcons: Record<HeroStat["icon"], typeof Send> = {
 };
 
 const departments = [
-  { id: 'CE', name: 'Civil Engineering', description: 'Advancing mueueueueue with precision and sustainable innovation.', image: CE_Img },
+  { id: 'CE', name: 'Civil Engineering', description: 'Advancing infrastructure with precision and sustainable innovation.', image: CE_Img },
   { id: 'CPE', name: 'Computer Engineering', description: 'Bridging software and hardware to power the digital future.', image: CPE_Img },
   { id: 'ECE', name: 'Electronics Engineering', description: 'Innovating communication systems and electronic technologies.', image: ECE_Img },
   { id: 'EE', name: 'Electrical Engineering', description: 'Generating power solutions and efficient energy systems.', image: EE_Img },
