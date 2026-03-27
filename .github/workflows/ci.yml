@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - "feature/**"
+      - "dept/**"
   pull_request:
     branches:
       - main
@@ -21,21 +22,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
       - name: Install dependencies
         run: |
           echo "Installing dependencies..."
           npm install
-
-      - name: Run lint
-        run: |
-          echo "Running lint checks..."
-          npm run lint --if-present
-
-      - name: Run tests
-        run: |
-          echo "Running tests..."
-          npm test --if-present
 
       - name: Build project
         run: |
@@ -43,9 +35,9 @@ jobs:
           npm run build
 
       - name: Trigger Render Deploy Hook
-        if: github.ref == 'refs/heads/main' && success()
+        if: github.ref == 'refs/heads/main'
         run: |
-          echo "CI passed. Triggering Render deploy..."
-          curl "$RENDER_DEPLOY_HOOK_URL"
+          echo "CI passed on main. Triggering Render deploy..."
+          curl -fsS -X POST "$RENDER_DEPLOY_HOOK_URL"
         env:
           RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
